@@ -1,0 +1,34 @@
+<% if (flash && flash.info && flash.info.length) { %>
+  <p><%= flash.info[0] %></p>
+<% } %>
+<% if (flash && flash.error && flash.error.length) { %>
+  <p><%= flash.error[0] %></p>
+<% } %>
+
+<a href="/jobs/add">Add Job</a>
+<a href="/logout-demo" style="margin-left: 12px;">Logout</a>
+<table>
+  <thead>
+    <tr>
+      <th>Company</th>
+      <th>Position</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% jobs.forEach(job => { %>
+      <tr>
+        <td><%= job.company %></td>
+        <td><%= job.position %></td>
+        <td><%= job.status %></td>
+        <td>
+          <a href="/jobs/edit/<%= job._id %>">Edit</a>
+          <form method="post" action="/jobs/delete/<%= job._id %>" style="display: inline;">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
