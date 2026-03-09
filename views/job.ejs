@@ -1,0 +1,28 @@
+<% if (flash && flash.info && flash.info.length) { %>
+  <p><%= flash.info[0] %></p>
+<% } %>
+<% if (flash && flash.error && flash.error.length) { %>
+  <p><%= flash.error[0] %></p>
+<% } %>
+
+<a href="/jobs">Back to Jobs</a>
+<form method="post" action="<%= job ? '/jobs/update/' + job._id : '/jobs' %>">
+  <input
+    name="company"
+    value="<%= job ? job.company : '' %>"
+    placeholder="Company"
+    required
+  />
+  <input
+    name="position"
+    value="<%= job ? job.position : '' %>"
+    placeholder="Position"
+    required
+  />
+  <select name="status">
+    <option value="interview" <%= job && job.status==='interview' ? 'selected' : '' %>>Interview</option>
+    <option value="pending" <%= !job || job.status==='pending' ? 'selected' : '' %>>Pending</option>
+    <option value="declined" <%= job && job.status==='declined' ? 'selected' : '' %>>Declined</option>
+  </select>
+  <button type="submit"><%= job ? "Update" : "Create" %></button>
+</form>
